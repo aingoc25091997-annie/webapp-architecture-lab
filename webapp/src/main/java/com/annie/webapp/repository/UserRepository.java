@@ -1,7 +1,10 @@
 package com.annie.webapp.repository;
 
-import com.annie.webapp.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.annie.webapp.model.User;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+import java.util.Optional;
+
+public interface UserRepository{
+    int save(User user);
+    Optional<User> findByUser(String username);
 }
