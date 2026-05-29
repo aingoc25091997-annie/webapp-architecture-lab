@@ -1,5 +1,6 @@
 package com.annie.webapp.controller;
 
+import com.annie.webapp.dto.LoginResponse;
 import com.annie.webapp.model.User;
 import com.annie.webapp.repository.UserRepository;
 import org.springframework.http.HttpStatus;
@@ -24,18 +25,22 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody User userRequest) {
+    public ResponseEntity<LoginResponse> loginUser(@RequestBody User userRequest) {
         Optional<User> userOptional = userRepository.findByUser(userRequest.getUsername());
+
         if (userOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User ko ton tai");
+            LoginResponse failResponse = new LoginResponse("fail", "username ko ton tai");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(failResponse);
         }
 
         User user = userOptional.get();
 
         if (user.getPassword().equals(userRequest.getPassword())){
-            return ResponseEntity.ok("Login success, welcome: " + user.getLastname());
+            LoginResponse successResponse = new LoginResponse(user.getUsername(), user.getId(), "succes", "Welcome : " + user.getUsername());
+            return ResponseEntity.ok(successResponse);
         } else {
-            return  ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Sai mat khau");
+            LoginResponse failRespone = new LoginResponse("fail", "Sai mat khau");
+            return  ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(failRespone);
         }
     }
 }

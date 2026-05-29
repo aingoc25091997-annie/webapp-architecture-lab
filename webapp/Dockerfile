@@ -5,7 +5,7 @@ FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
 
 # Bước 3: Copy file jar đã build (từ thư mục target/ hoặc build/libs/) vào container
-# Lưu ý: Bạn cần chạy lệnh `./mvnw clean package` hoặc `./gradlew build` trước ở máy thật
+# Lưu ý: Bạn cần chạy lệnh `.\mvnw clean package -DskipTests` hoặc `./gradlew build` trước ở máy thật
 COPY target/*.jar app.jar
 
 # Bước 4: Ra lệnh cho container chạy file jar này khi khởi động
