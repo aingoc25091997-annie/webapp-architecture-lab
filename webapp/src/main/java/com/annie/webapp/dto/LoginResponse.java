@@ -3,8 +3,17 @@ package com.annie.webapp.dto;
 public class LoginResponse {
     private String username;
     private Long userId;
+    private String accessToken;
+    private String status;
+    private String message;
 
     public LoginResponse(String status, String message) {
+        this.status = status;
+        this.message = message;
+    }
+
+    public LoginResponse(String accessToken, String status, String message) {
+        this.accessToken = accessToken;
         this.status = status;
         this.message = message;
     }
@@ -16,8 +25,13 @@ public class LoginResponse {
         this.message = message;
     }
 
-    private String status;
-    private String message;
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
 
     public String getUsername() {
         return username;
